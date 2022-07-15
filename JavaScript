@@ -1,0 +1,56 @@
+<script>
+  /*
+  *THIS FUNCTION CALLS THE getData() FUNCTION IN THE Code.gs FILE, 
+  *AND PASS RETURNED DATA TO showData() FUNCTION
+  */
+  google.script.run.withSuccessHandler(showData).getData();
+ 
+  //THIS FUNCTION GENERATE THE DATA TABLE FROM THE DATA ARRAY
+  function showData(dataArray){
+    $(document).ready(function(){
+     var table =  $('#data-table').DataTable({
+        data: dataArray,
+        //CHANGE THE TABLE HEADINGS BELOW TO MATCH WITH YOUR SELECTED DATA RANGE
+        columns: [
+          {"title":"Name"},
+          {"title":"Position"},
+          {"title":"Office"},
+          {"title":"Age"},
+
+          {
+            "title":"URL",
+            render: function(data,type,row,meta){
+              if(type==='display'){
+                data= '<a href="' + data + '"target="_blank">Link</a>';
+              }
+              return data;
+            },
+            
+            },
+          {
+            "title":"Image"
+            render: function(data,type,row,meta){          
+              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="50" heigth="50"/></a>';
+            },
+            }
+        ],
+        buttons: ['pdf','colvis'],
+        dom:
+            "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+      });
+      $(".filterhead").not(":eq(4),:eq(5)").each( function ( i ) {
+        var select = $('<select><option value=""></option></select>')
+            .appendTo( $(this).empty() )
+            .on( 'change', function () {
+               var term = $(this).val();
+                table.column( i ).search(term, false, false ).draw();
+            } );
+ 	      table.column( i ).data().unique().sort().each( function ( d, j ) {
+            	select.append( '<option value="'+d+'">'+d+'</option>' )
+        } );
+		} );
+    });
+  }
+</script>
