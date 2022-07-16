@@ -28,9 +28,9 @@
             
             },
           {
-            "title":"Image"
+            "title":"Image",
             render: function(data,type,row,meta){          
-              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="50" heigth="50"/></a>';
+              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="100" heigth="100"/></a>';
             },
             }
         ],
