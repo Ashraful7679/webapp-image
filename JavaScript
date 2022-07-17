@@ -9,16 +9,18 @@
   function showData(dataArray){
     $(document).ready(function(){
      var table =  $('#data-table').DataTable({
+
+     
         data: dataArray,
         //CHANGE THE TABLE HEADINGS BELOW TO MATCH WITH YOUR SELECTED DATA RANGE
         columns: [
-          {"title":"Name"},
-          {"title":"Position"},
-          {"title":"Office"},
-          {"title":"Age"},
+          {"title":"Timestamp"},
+          {"title":"where"},
+          {"title":"APTNO"},
+          {"title":"Notes"},
 
           {
-            "title":"URL",
+            "title":"Donde",
             render: function(data,type,row,meta){
               if(type==='display'){
                 data= '<a href="' + data + '"target="_blank">Link</a>';
@@ -28,19 +30,43 @@
             
             },
           {
-            "title":"Image",
+            "title":"Image1",
+            render: function(data,type,row,meta){          
+              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="100" heigth="100"/></a>';
+            },
+            },
+          {
+            "title":"Image2",
+            render: function(data,type,row,meta){          
+              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="100" heigth="100"/></a>';
+            },
+            },
+          {
+            "title":"Image3",
+            render: function(data,type,row,meta){          
+              return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="100" heigth="100"/></a>';
+            },
+            },
+          {
+            "title":"Image4",
             render: function(data,type,row,meta){          
               return '<a href="' + data + '" target="_blank"><img src="' + data + '" class="avatar" width ="100" heigth="100"/></a>';
             },
             }
         ],
+
+      columnDefs:[
+         {"width":"10%", "targets":[3,4,5,6,7]}
+       ],
+
+
         buttons: ['pdf','colvis'],
         dom:
             "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
       });
-      $(".filterhead").not(":eq(4),:eq(5)").each( function ( i ) {
+      $(".filterhead").not(":eq(4),:eq(5),:eq(6),:eq(7),:eq(8),:eq(3),:eq(2)").each( function ( i ) {
         var select = $('<select><option value=""></option></select>')
             .appendTo( $(this).empty() )
             .on( 'change', function () {
